@@ -1,0 +1,99 @@
+<form class="form-horizontal" @submit.prevent="uploadFile">
+    <div class="fileinput fileinput-new" data-provides="fileinput" v-el:fileInput>
+        <span class="btn btn-default btn-sm btn-file"><span class="fileinput-new">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+            Select file</span><span
+                class="fileinput-exists">Change</span><input type="file" v-el:fileInput name="..."></span>
+        <span class="fileinput-filename"></span>
+        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+    </div>
+    <br>
+    <button class="btn btn-sm btn-primary">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+        Upload and Review</button>
+    <a href="{{url}}download-template" class="btn btn-sm btn-primary">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        Download Template</a>
+</form>
+
+<h5 v-if="total">Imported : {{ completed.length }} / {{ total }}</h5>
+
+<table class="table students import-wrapper"
+       v-if="total">
+    <thead>
+    <tr>
+        <th>
+            <label class="md-check">
+                <input type="checkbox" v-model="selectedAll">
+                <i class="primary"></i>
+            </label>
+        </th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Birth date</th>
+        <th>Birth place</th>
+        <th>Address</th>
+        <th>Section</th>
+        <th>Order</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="item in data" :class="{'alert-success':item.created}">
+        <td>
+            <label class="md-check" v-if="!item.created">
+                <input type="checkbox" v-model="item.selected">
+                <i class="primary"></i>
+            </label>
+        </td>
+        <td>
+            {{ item.first_name }}
+        </td>
+        <td>
+            {{ item.last_name }}
+        </td>
+        <td>
+            {{ item.email }}
+        </td>
+        <td>
+            {{ item.password }}
+        </td>
+        <td>
+            {{ item.birth_date }}
+        </td>
+        <td>
+            {{ item.birth_place }}
+        </td>
+        <td>
+            {{ item.address }}
+        </td>
+        <td>
+            <select name="section_id"
+                    v-select="item.section_id"
+                    :options="sections"
+                    data-placeholder="Select Section" style="width: 100%">
+                <option value="" disabled="disabled">default</option>
+            </select>
+        </td>
+        <td>
+            {{ item.order }}
+        </td>
+        <td>
+            <button v-if="!item.created" class="btn btn-sm btn-primary btn-xs" @click="createRecord(item)">Create</button>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12">
+        <a v-show="remaining.length > 0"
+           :class="{ 'disabled': !selected.length }"
+           href="" @click.prevent="createAll"
+           class="btn btn-primary btn-sm pull-right">Create Selected</a>
+    </div>
+</div>

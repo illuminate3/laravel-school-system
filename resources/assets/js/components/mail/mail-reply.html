@@ -1,0 +1,14 @@
+<div class="panel">
+    <div class="panel-body">
+
+        <textarea class="form-control"
+                  v-model="data.message"
+                  rows="10" placeholder="Enter your message here..."></textarea>
+
+        <div class="compose-btn pull-right" style="margin-top: 20px">
+            <a href="" @click.prevent="submitReply" class="btn btn-sm btn-primary">
+                Submit
+            </a>
+        </div>
+    </div>
+</div>

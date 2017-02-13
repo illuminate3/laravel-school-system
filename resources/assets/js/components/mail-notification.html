@@ -1,0 +1,31 @@
+<li role="presentation" class="dropdown">
+    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-envelope-o"></i>
+        <span class="badge bg-blue">{{ total }}</span>
+    </a>
+    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+        <li>You have {{ total }} new emails.</li>
+        <li v-for="item in notifications">
+            <a href="{{ url }}" @click.prevent="readNotification(item)" class="message striped-col">
+
+                <img :src="item.sender.picture"
+                     class="message-image  col-sm-3 img-circle" alt="image"/>
+
+                <div class="message-body">
+                    <strong>{{ item.sender.full_name }}</strong>
+                    <br>
+                    {{ item.subject }}
+                    <br>
+                    <small>{{ item.created_at | date }}</small>
+                    <span class="label label-success label-mini msg-lable">New</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url }}//mailbox#/m/inbox">
+                <strong>View Messages </strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+</li>

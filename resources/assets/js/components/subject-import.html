@@ -1,0 +1,92 @@
+<form class="form-horizontal" @submit.prevent="uploadFile">
+    <div class="fileinput fileinput-new" data-provides="fileinput" v-el:fileInput>
+        <span class="btn btn-default btn-sm btn-file"><span class="fileinput-new">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+            Select file</span><span
+                class="fileinput-exists">Change</span><input type="file" v-el:fileInput name="..."></span>
+        <span class="fileinput-filename"></span>
+        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+    </div>
+    <br>
+    <button class="btn btn-sm btn-primary">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+        Upload and Review</button>
+    <a href="{{url}}download-template" class="btn btn-sm btn-primary">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        Download Template</a>
+</form>
+
+<h5 v-if="total">Imported : {{ completed.length }} / {{ total }}</h5>
+
+<table class="table subjects import-wrapper"
+       v-if="total">
+    <thead>
+    <tr>
+        <th>
+            <label class="md-check">
+                <input type="checkbox" v-model="selectedAll">
+                <i class="primary"></i>
+            </label>
+        </th>
+        <th>Subject title</th>
+        <th>Direction</th>
+        <th>Ordinal number of subject</th>
+        <th>Class</th>
+        <th>Mark system</th>
+        <th>Subject fee</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="item in data" :class="{'alert-success':item.created}">
+        <td>
+            <label class="md-check" v-if="!item.created">
+                <input type="checkbox" v-model="item.selected">
+                <i class="primary"></i>
+            </label>
+        </td>
+        <td>
+            {{ item.title }}
+        </td>
+        <td>
+            <select name="direction_id"
+                    v-select="item.direction_id"
+                    :options="directions"
+                    data-placeholder="Select Direction" style="width: 100%">
+                <option value="" disabled="disabled">default</option>
+            </select>
+        </td>
+        <td>
+            {{ item.order }}
+        </td>
+        <td>
+            {{ item.class }}
+        </td>
+        <td>
+            <select name="mark_system_id"
+                    v-select="item.mark_system_id"
+                    :options="mark_systems"
+                    data-placeholder="Select Mark System" style="width: 100%">
+                <option value="" disabled="disabled">default</option>
+            </select>
+        </td>
+        <td>
+            {{ item.fee }}
+        </td>
+        <td>
+            <button v-if="!item.created" class="btn btn-sm btn-primary btn-xs" @click="createRecord(item)">Create</button>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12">
+        <a v-show="remaining.length > 0"
+           :class="{ 'disabled': !selected.length }"
+           href="" @click.prevent="createAll"
+           class="btn btn-primary btn-sm pull-right">Create Selected</a>
+    </div>
+</div>

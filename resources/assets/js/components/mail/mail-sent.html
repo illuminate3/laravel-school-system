@@ -1,0 +1,41 @@
+<section class="panel">
+    <div class="panel-body ">
+
+        <div class="mail-box-header">
+
+            <h2>Sent ({{ mails.length }})</h2>
+        </div>
+
+        <div class="mail-box">
+            <div class="table-responsive">
+                <table class="table" id="inbox-check">
+                    <tbody>
+                    <tr data-messageid="1" class="unread" v-for="mail in mails">
+                        <!--<td class="inbox-small-cells">-->
+                            <!--<div class="checker">-->
+                                <!--<span>-->
+                                    <!--<input type="checkbox" v-model="mail.checked">-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <td class="view-message hidden-xs">
+                            <a v-link="{ name: 'sent', params: { id: mail.id } }">
+                                <img :src="mail.receiver.picture" width="27" height="27"
+                                     class="img-circle img-responsive pull-left" alt="Image">{{ mail.receiver.full_name }}</a>
+                        </td>
+                        <td class="view-message ">
+                            <a v-link="{ name: 'sent', params: { id: mail.id } }">{{ mail.subject }}</a>
+                        </td>
+
+                        <td class="view-message text-right">
+                            <a v-link="{ name: 'sent', params: { id: mail.id } }">{{ mail.created_at | date }}</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>

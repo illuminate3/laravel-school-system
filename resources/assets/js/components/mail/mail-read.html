@@ -1,0 +1,47 @@
+<section class="panel">
+
+    <div class="panel-body ">
+
+        <div class="mail-header row">
+            <div class="col-md-8">
+                <h4 class="pull-left">{{ email.subject }}</h4>
+            </div>
+            <div class="col-md-4">
+                <div class="compose-btn pull-right">
+                    <a v-link="{ name: 'reply', params: { id: email.id } }" class="btn btn-sm btn-primary">
+                        <i class="fa fa-reply"></i>
+                        Reply
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="mail-sender">
+            <div class="row">
+                <div class="col-md-8">
+                    <img :src="email.sender.picture" alt="icon" class="img-circle" width="38">
+                    <span>{{ email.sender.full_name }}</span>
+                    ({{ email.sender.email }}) to
+                    <span>me</span>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+                    <p class="date">{{ email.created_at | dateFull }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="view-mail">
+            {{ email.message }}
+        </div>
+
+        <hr />
+
+        <div class="compose-btn pull-left">
+            <a v-link="{ name: 'reply', params: { id: email.id } }" class="btn btn-sm btn-primary">
+                <i class="fa fa-reply"></i>
+                Reply
+            </a>
+        </div>
+    </div>
+</section>
+
+<router-view></router-view>
